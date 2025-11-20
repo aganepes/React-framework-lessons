@@ -6,7 +6,7 @@ export type todoType = {
 	userId: number;
 	id: number;
 	title: string;
-	body: string;
+	completed: boolean;
 }
 type stateType = { todos: todoType[] };
 
