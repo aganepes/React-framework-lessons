@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import type { todoType } from './App';
 import styles from "./todo.module.css";
 
