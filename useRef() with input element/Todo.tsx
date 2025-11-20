@@ -14,6 +14,11 @@ const Todo = (props: PropsType): React.ReactElement<PropsType> => {
 
 	const [visibleInput, setVisibleInput] = useState<boolean>(false);
 
+	useEffect(() => {
+		return () => {
+			// console.log(`${props.todo.id} - removed to todo.`);
+		}
+	}, []);
 	const handleChange = () => {
 		const input = titleRef.current!;
 		console.log(input);
