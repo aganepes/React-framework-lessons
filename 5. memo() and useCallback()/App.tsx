@@ -2,15 +2,25 @@ import { useState, useCallback, memo, type FC } from 'react';
 import './App.css';
 
 
-
-const calculValue = (num:number):number=>{
-	let sum = 0;
-	for (let i = 0; i < num*100; i++) {
-		sum+=i;
-	}
-
-	return sum;
+interface ButtonProps {
+	handleClick: (message: string) => void;
+	label: string;
 }
+
+const MemoizedButton: FC<ButtonProps> = memo(({ label, handleClick }) => {
+	const [numb, setNumb] = useState<number>(1);
+	console.log(`Render ${label} button`);
+	return <>
+		<button onClick={() => {
+			handleClick(`Clicked - ${numb}: ${label} button`);
+			setNumb(n => n + 1)
+		}
+		}>
+			{label}
+		</button>
+	</>
+});
+
 
 const App: FC = () => {
 	const [count, setCount] = useState<number>(0);
