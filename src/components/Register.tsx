@@ -29,12 +29,17 @@ function Register(props: { setVisibleLogin: (is:boolean)=>void }) {
 			});
 			return;
 		}
+		setErrorPassword(false)
 		dispatch({
 			type: "REGISTER",
 			payload: {
 				user: { name, email, password }
 			}
 		});
+		setPassword("");
+		setEmail("");
+		setConfirmPassword("")
+		setName("");
 	}
 
 	return (<>
@@ -42,35 +47,35 @@ function Register(props: { setVisibleLogin: (is:boolean)=>void }) {
 			<div style={{ display: "inline" }}>
 				<label htmlFor="name">Name:</label>
 				<input type="text" id="name" placeholder='Name'
-					defaultValue={name}
+					value={name}
 					onChange={(e) => setName(e.target.value)}
 				/>
 			</div>
 			<div style={{ display: "inline" }}>
 				<label htmlFor="email">Email:</label>
 				<input type="text" id="email" placeholder='Email'
-					defaultValue={email}
+					value={email}
 					onChange={(e) => setEmail(e.target.value)}
 				/>
 			</div>
 			<div style={{ display: "inline" }}>
 				<label htmlFor="password">Password:</label>
 				<input type="text" id="password" placeholder='Password'
-					defaultValue={password}
+					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 				/>
 			</div>
 			<div style={{ display: "inline" }}>
 				<label htmlFor="confirm">Confirm password:</label>
 				<input type="password" id="confirm" placeholder='Confirm password'
-					style={errorPassword ? {border:"1px solid red",marginBottom:"0"} : {border:"none",marginBottom:"1.4rem"}}
-					defaultValue={confirmPassword}
+					style={errorPassword ? {border:"1px solid red",marginBottom:"0"} : {border:"1px solid gray",marginBottom:"1.4rem"}}
+					value={confirmPassword}
 					onChange={(e) => setConfirmPassword(e.target.value)}
 				/>
 			</div>
 			{errorPassword && <p style={{color:'yellowgreen'}}>Confirm password error</p>}
 			<button onClick={handleRegister} style={{ width: '150px', padding: "5px 10px" }}>Register</button>
-			<p onChange={()=>props.setVisibleLogin(true)}>To Login</p>
+			<p onClick={()=>props.setVisibleLogin(true)}>To Login</p>
 		</div>
 	</>
 	)

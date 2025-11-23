@@ -1,29 +1,32 @@
 import type { GlobalAction, GlobalState } from "./GlobalTypes";
 
-const toLoading = ():Promise<boolean> => {
-	return new Promise((res) => {
-		setTimeout(() => {
-			res(true)
-		}, 2000);
-	})
-}
+// const toLoading = ():Promise<boolean> => {
+// 	return new Promise((res) => {
+// 		setTimeout(() => {
+// 			res(true)
+// 		}, 2000);
+// 	})
+// }
 
 
-const globalReducer = async (state: GlobalState, action: GlobalAction): Promise<GlobalState> => {
+const globalReducer = (state: GlobalState, action: GlobalAction): GlobalState => {
+	
 	switch (action.type) {
 		case "TOGGLE_THEME":
+			console.log(action)
 			return {
 				...state,
 				theme: state.theme == "dark" ? "light" : "dark",
 			}
 		case "CHANGE-LANG":
+			console.log("dff",action)
 			return {
 				...state,
 				lang: action.payload?.lang || "en"
 			}
 		case "REGISTER": {
 			// connect to backend
-			const isRegister = await toLoading();
+			const isRegister = true//await toLoading();
 
 			if (isRegister) return {
 				...state,
@@ -51,7 +54,7 @@ const globalReducer = async (state: GlobalState, action: GlobalAction): Promise<
 		}
 		case "LOGIN": {
 			// connect to backend
-			const isLogin = await toLoading();
+			const isLogin = true//await toLoading();
 
 			if (isLogin) return {
 				...state,
@@ -91,14 +94,14 @@ const globalReducer = async (state: GlobalState, action: GlobalAction): Promise<
 			return {
 				...state,
 				auth: {
-					isLoggedIn: true,
+					isLoggedIn: false,
 					status: "idle"
 				},
 				registerStatus:"none"
 			}
 		case "LOADING-AUTH":
 			// connect to backend
-			await toLoading()
+			//await toLoading()
 			return {
 				...state,
 				auth: {
@@ -108,7 +111,7 @@ const globalReducer = async (state: GlobalState, action: GlobalAction): Promise<
 			}
 		case "ERROR-AUTH":
 			// connect to backend
-			await toLoading()
+			//await toLoading()
 			return {
 				...state,
 				auth: {
@@ -117,6 +120,7 @@ const globalReducer = async (state: GlobalState, action: GlobalAction): Promise<
 				}
 			}
 		default:
+			console.log(action)
 			return state
 	}
 }

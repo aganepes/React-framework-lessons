@@ -3,7 +3,6 @@ import  { initialGlobalState,type GlobalContextProps} from "./GlobalTypes";
 import  globalReducer  from "./GlobalReducer";
 
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const GlobalContext = createContext<GlobalContextProps|null>(null);
 
 interface GlobalProviderProps {

@@ -6,16 +6,15 @@ function LoginHeader() {
 	const { state, dispatch } = useContext<GlobalContextProps | null>(GlobalContext)!;
 	useEffect(() => {
 		dispatch({ type: "IS-LOGIN" });
-		console.log(state)
-	}, [])
+	}, [dispatch]);
 	return (
 		<div>
-			{state?.auth && state?.auth?.isLoggedIn ?
+			{state.auth?.isLoggedIn ?
 				<div style={{ display: "inline" }}>
 					<p style={{ color: "teal", marginRight: "10px" }}>
 						{state.user?.name ? state.user.name + " are " : state.user?.email+ " is "} logged in.</p>
 					<button onClick={() => dispatch({ type: "LOGOUT" })}>
-						=={'>'} Logout
+						={'>'} Logout
 					</button>
 				</div>
 				:

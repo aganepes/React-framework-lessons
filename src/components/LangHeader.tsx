@@ -5,14 +5,13 @@ import type { GlobalContextProps } from '../context/GlobalTypes';
 
 function LangHeader() {
 	const { state, dispatch } = useContext<GlobalContextProps | null>(GlobalContext)!;
-
 	return (
 		<div style={{ display: "flex", gap: "1rem" }}>
-			<p style={{ color: "chartreuse" }}>Current lang: {Content.langName[state.lang]}</p>
+			<p style={{ color: "chartreuse" }}>Current lang: {Content.langName[state.lang]||"en"}</p>
 			<div style={{ display: "flex", gap: ".5rem", padding: "5px" }}>
-				<button onChange={() => dispatch({ type: "CHANGE-LANG", payload: { lang: "en" } })}>Eng</button>
-				<button onChange={() => dispatch({ type: "CHANGE-LANG", payload: { lang: "ru" } })}>Rus</button>
-				<button onChange={() => dispatch({ type: "CHANGE-LANG", payload: { lang: "tm" } })}>Türkmen</button>
+				<button onClick={() => dispatch({ type: "CHANGE-LANG", payload: { lang: "en" } })}>Eng</button>
+				<button onClick={() => dispatch({ type: "CHANGE-LANG", payload: { lang: "ru" } })}>Rus</button>
+				<button onClick={() => dispatch({ type: "CHANGE-LANG", payload: { lang: "tm" } })}>Türkmen</button>
 			</div>
 		</div>
 	)

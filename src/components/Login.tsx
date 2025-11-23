@@ -32,7 +32,7 @@ function Register(props: { setVisibleLogin: (is: boolean) => void }) {
 	}
 
 	return (<>
-		<div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+		<div style={{ display: "flex", flexDirection: "column", gap: "10px"}}>
 			<div style={{ display: "inline" }}>
 				<label htmlFor="name">Name/Email:</label>
 				<input type="text" id="name" placeholder='Name or Email'
@@ -48,7 +48,7 @@ function Register(props: { setVisibleLogin: (is: boolean) => void }) {
 				/>
 			</div>
 			<button onClick={handleLogin} style={{ width: '150px', padding: "5px 10px" }}>Login</button>
-			<p onChange={() => props.setVisibleLogin(true)}>To Login</p>
+			<p onClick={() => props.setVisibleLogin(false)}>To Register</p>
 		</div>
 	</>
 	)
