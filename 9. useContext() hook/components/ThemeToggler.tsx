@@ -1,7 +1,8 @@
-import { useTheme } from '../hooks/useTheme'
+import { useContext } from "react";
+import { ThemeContext, ThemeContextProps } from "../context/ThemeContext";
 
 function ThemeToggler() {
-	const { state, dispatch } = useTheme();
+	const { state, dispatch } = useContext<ThemeContextProps>(ThemeContext)!;
 
 	const handleToggle = () => {
 		dispatch({ type: "TOGGLE_THEME" });

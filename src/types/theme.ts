@@ -4,7 +4,7 @@ export interface ThemeState {
 	theme: "light" | "dark";
 }
 
-export type ThemeAction = { type: "TOGGLE_THEME" | "COUNTER" };
+export type ThemeAction = { type: "TOGGLE_THEME"};
 
 export interface ThemeContextProps {
 	state: ThemeState;
