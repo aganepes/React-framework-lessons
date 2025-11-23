@@ -1,41 +1,35 @@
 import { useContext, useState } from 'react'
-import type { GlobalContextProps} from '../context/GlobalTypes';
-import { GlobalContext } from '../context/GlobalContext';
+import type { GlobalContextProps } from '../../context/global/GlobalTypes';
+import { GlobalContext } from '../../context/global/GlobalContext';
+import { mockRegister } from '../../context/utils/Login';
 
-function Register(props: { setVisibleLogin: (is:boolean)=>void }) {
+function Register(props: { setVisibleLogin: (is: boolean) => void }) {
+
 	const { dispatch } = useContext<GlobalContextProps | null>(GlobalContext)!;
+
 	const [name, setName] = useState<string>("");
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const [confirmPassword, setConfirmPassword] = useState<string>("");
-	const [errorPassword , setErrorPassword] = useState<boolean>(false);
-	const handleRegister = () => {
-		dispatch({
-				type: "LOADING-AUTH",
-				payload: {
-					auth: { isLoggedIn: false, status: "loading" }
-				}
-			});
+	const [errorPassword, setErrorPassword] = useState<boolean>(false);
+
+	const handleRegister = async () => {
+		dispatch({ type: "START-LOGIN" });
+
 		if (password != confirmPassword) {
 			setErrorPassword(true);
 			setConfirmPassword("");
-			dispatch({
-				type: "ERROR-AUTH",
-				payload: {
-					auth: { isLoggedIn: false, status: "idle" },
-					user:null,
-					registerStatus:"none"
-				}
-			});
+			dispatch({ type: "LOGIN-ERROR" });
 			return;
 		}
-		setErrorPassword(false)
+		setErrorPassword(false);
+		await mockRegister({ name, email, password });
+
 		dispatch({
 			type: "REGISTER",
-			payload: {
-				user: { name, email, password }
-			}
+			payload: { name, email, password }
 		});
+
 		setPassword("");
 		setEmail("");
 		setConfirmPassword("")
@@ -68,14 +62,14 @@ function Register(props: { setVisibleLogin: (is:boolean)=>void }) {
 			<div style={{ display: "inline" }}>
 				<label htmlFor="confirm">Confirm password:</label>
 				<input type="password" id="confirm" placeholder='Confirm password'
-					style={errorPassword ? {border:"1px solid red",marginBottom:"0"} : {border:"1px solid gray",marginBottom:"1.4rem"}}
+					style={errorPassword ? { border: "1px solid red", marginBottom: "0" } : { border: "1px solid gray", marginBottom: "1.4rem" }}
 					value={confirmPassword}
 					onChange={(e) => setConfirmPassword(e.target.value)}
 				/>
 			</div>
-			{errorPassword && <p style={{color:'yellowgreen'}}>Confirm password error</p>}
-			<button onClick={handleRegister} style={{ width: '150px', padding: "5px 10px" }}>Register</button>
-			<p onClick={()=>props.setVisibleLogin(true)}>To Login</p>
+			{errorPassword && <p style={{ color: 'yellowgreen' }}>Confirm password error</p>}
+			<button onClick={async () => await handleRegister()} style={{ width: '150px', padding: "5px 10px" }}>Register</button>
+			<p onClick={() => props.setVisibleLogin(true)}>To Login</p>
 		</div>
 	</>
 	)

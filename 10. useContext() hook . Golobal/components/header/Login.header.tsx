@@ -1,18 +1,15 @@
-import { useContext, useEffect } from 'react'
-import type { GlobalContextProps } from '../context/GlobalTypes';
-import { GlobalContext } from '../context/GlobalContext';
+import { useContext } from 'react'
+import { GlobalContext } from '../../context/global/GlobalContext';
+import type { GlobalContextProps } from '../../context/global/GlobalTypes';
 
 function LoginHeader() {
 	const { state, dispatch } = useContext<GlobalContextProps | null>(GlobalContext)!;
-	useEffect(() => {
-		dispatch({ type: "IS-LOGIN" });
-	}, [dispatch]);
 	return (
 		<div>
-			{state.auth?.isLoggedIn ?
+			{state.auth.isLoggedIn ?
 				<div style={{ display: "inline" }}>
 					<p style={{ color: "teal", marginRight: "10px" }}>
-						{state.user?.name ? state.user.name + " are " : state.user?.email+ " is "} logged in.</p>
+						{state.user?.name + " are " } logged in.</p>
 					<button onClick={() => dispatch({ type: "LOGOUT" })}>
 						={'>'} Logout
 					</button>

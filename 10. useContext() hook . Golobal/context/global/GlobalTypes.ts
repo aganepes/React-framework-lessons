@@ -1,38 +1,37 @@
 import type React from "react";
 
 export type UserData = {
-	id: string;
 	name: string;
 	email: string;
 	password: string;
 }
+type TUser = {
+	id: number;
+	name: string;
+	email: string;
+	password: string;
+}
+
 export type Auth = {
 	isLoggedIn: boolean;
 	status: "idle" | "loading" | "success" | "error";
 };
 export type Lang = "en" | "tm" | "ru";
-export type RegisterType = "none" | "register";
+
 export interface GlobalState {
 	theme: "light" | "dark";
 	lang: Lang;
 	auth: Auth;
-	user: Partial<UserData> | null;
-	registerStatus:RegisterType;
+	user: UserData | null;
 }
-export type ActionType = "TOGGLE_THEME" |
-	"CHANGE-LANG"|
-	"IS-LOGIN" | "LOGOUT" |  "REGISTER" | "LOGIN" |
-	"LOADING-AUTH" | "ERROR-AUTH" ;
+export type GlobalAction = { type: "TOGGLE_THEME" } |
+{ type: "CHANGE-LANG", payload: Lang } |
+{ type: "START-LOGIN" } |
+{ type: "LOGIN", payload: TUser } |
+{ type: "LOGIN-ERROR" } |
+{ type: "LOGOUT" } |
+{ type: "REGISTER", payload: UserData };
 
-export type GlobalAction = {
-	type: ActionType;
-	payload?: {
-		user?: Partial<UserData> | null;
-		auth?: Auth;
-		registerStatus?:RegisterType;
-		lang?: Lang;
-	}
-};
 
 export interface GlobalContextProps {
 	state: GlobalState;
@@ -47,5 +46,4 @@ export const initialGlobalState: GlobalState = {
 		status: "idle"
 	},
 	user: null,
-	registerStatus:"none"
 }

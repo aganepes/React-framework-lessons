@@ -1,38 +1,32 @@
 import { useContext, useState } from 'react'
-import type { GlobalContextProps } from '../context/GlobalTypes';
-import { GlobalContext } from '../context/GlobalContext';
+import type { GlobalContextProps } from '../../context/global/GlobalTypes';
+import { GlobalContext } from '../../context/global/GlobalContext';
+import { mockLogin } from '../../context/utils/Login';
 
 function Register(props: { setVisibleLogin: (is: boolean) => void }) {
 	const { dispatch } = useContext<GlobalContextProps | null>(GlobalContext)!;
 	const [name, setName] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 
-	const handleLogin = () => {
-		dispatch({
-			type: "LOADING-AUTH",
-			payload: {
-				auth: { isLoggedIn: false, status: "loading" }
-			}
-		});
-		if (name.includes("@")) {
+	const handleLogin = async () => {
+		dispatch({ type: "START-LOGIN" });
+
+
+		const resp = await mockLogin({ name, password });
+		if (resp.success) {
 			dispatch({
 				type: "LOGIN",
-				payload: {
-					user: { email: name, password }
-				}
+				payload: { id: resp.userId!, name, email: name, password }
 			});
-			return;
+		} else {
+			dispatch({ type: "LOGIN-ERROR" });
 		}
-		dispatch({
-			type: "LOGIN",
-			payload: {
-				user: { name, password }
-			}
-		});
+
+
 	}
 
 	return (<>
-		<div style={{ display: "flex", flexDirection: "column", gap: "10px"}}>
+		<div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
 			<div style={{ display: "inline" }}>
 				<label htmlFor="name">Name/Email:</label>
 				<input type="text" id="name" placeholder='Name or Email'
