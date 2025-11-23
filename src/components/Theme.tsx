@@ -1,14 +1,15 @@
-import { useTheme } from '../hooks/useTheme'
+import { useContext } from 'react'
+import { GlobalContext } from '../context/GlobalContext';
+import type { GlobalContextProps } from '../context/GlobalTypes';
 
-function ThemeToggler() {
-	const { state, dispatch } = useTheme();
+function Theme() {
+	const { state, dispatch } = useContext<GlobalContextProps | null>(GlobalContext)!;
 
 	const handleToggle = () => {
 		dispatch({ type: "TOGGLE_THEME" });
 	}
 	const isDark = state.theme === "dark";
-
-	return (
+	return (<>
 		<div
 			style={{
 				padding: "20px",
@@ -25,7 +26,9 @@ function ThemeToggler() {
 				Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde nemo ratione possimus iste perspiciatis optio quod maiores officiis deserunt dolore, illo nam? Fuga quis aspernatur a saepe eveniet fugit quasi?
 			</p>
 		</div>
+		<div>Theme</div>
+	</>
 	)
 }
 
-export default ThemeToggler;
+export default Theme
