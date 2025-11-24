@@ -23,18 +23,18 @@ const todoReduce = (state: State, action: Action): State => {
 }
 
 const App: FC = () => {
-	const [ state, todoDispath ] = useReducer(todoReduce, { userId: 1 });
+	const [ state, todoDispatch ] = useReducer(todoReduce, { userId: 1 });
 	return (<div>
 		<h3>Custom Hooks Example</h3>
 		<div style={{border:"1px solid red",padding:"10px"}}>
 			<button
-				onClick={() => todoDispath({ type: "INCREMENT" })}>ID + </button>
+				onClick={() => todoDispatch({ type: "INCREMENT" })}>ID + </button>
 			<br />
 			<button
-				onClick={() => todoDispath({ type: "DECREMENT" })}>ID - </button>
+				onClick={() => todoDispatch({ type: "DECREMENT" })}>ID - </button>
 			<br />
 			<button
-				onClick={() => todoDispath({ type: "RESET"})}>ID = 1 </button>
+				onClick={() => todoDispatch({ type: "RESET"})}>ID = 1 </button>
 		</div>
 		<Todos user={state}>
 			<div style={{height:"5px",backgroundColor:"orange"}}></div>
