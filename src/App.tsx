@@ -36,7 +36,7 @@ const About: React.FC = () => (
 	</div>
 )
 const Contact: React.FC = () => {
-	
+
 	return (<>
 		<h2>Contact Page</h2>
 
