@@ -24,7 +24,7 @@ const User: React.FC = () => {
 			(<div className={styles.card}>
 				<h3>Name: {user?.name}</h3>
 				<address>Address: {user?.address}</address>
-				<h6>Query: {search.get("q")}</h6>
+				{search.get("q") && <h6>Query: {search.get("q")}</h6>}
 			</div>)}
 	</>
 }

@@ -3,6 +3,7 @@ import Nav from "./Nav";
 
 const Home: React.FC = () => {
 	const navigate = useNavigate();
+	console.log("HOme")
 	return (
 		<>
 			<Nav />

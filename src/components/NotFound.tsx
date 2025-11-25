@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
 const NotFound: React.FC = () => {
+	console.log("Not found")
 	const navigate = useNavigate();
 	return <>
 		<h2>Not found this page</h2>

@@ -7,7 +7,7 @@ const Nav: React.FC = React.memo(() => (<nav>
 		<li><Link to="/about">About</Link></li>
 		<li><Link to="/contact">Contact</Link></li>
 		<li><Link to="/users">Users</Link></li>
-		<li><Link to="/#7s1a">Not found</Link></li>
+		<li><Link to="/7s1a">Not found</Link></li>
 	</ul>
 </nav>
 ));
