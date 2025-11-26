@@ -3,8 +3,9 @@ import { NavLink, Outlet } from 'react-router-dom'
 import styles from '../styles/App.module.css';
 import Nav from './Nav';
 
-const About: React.FC = () => (
-	<>
+const About: React.FC = () => {
+
+	return <>
 		<Nav />
 		<h2>About Page</h2>
 		<nav>
@@ -13,7 +14,8 @@ const About: React.FC = () => (
 					<NavLink to="team" style={({ isActive }) => isActive ? { color: "red" } : { color: "black" }}>Out Team</NavLink>
 				</li>
 				<li>
-					<NavLink to="company" className={({ isActive }) => isActive ? styles.linkActive : styles.link}>
+					<NavLink
+						to="company" className={({ isActive }) => isActive ? styles.linkActive : styles.link}>
 						{({ isPending }) => isPending ? 'Our Company...' : "Our Company"}
 					</NavLink>
 				</li>
@@ -21,6 +23,5 @@ const About: React.FC = () => (
 		</nav>
 		<Outlet />
 	</>
-)
-
+}
 export default About;
