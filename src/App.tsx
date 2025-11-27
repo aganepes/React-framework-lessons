@@ -1,50 +1,16 @@
-import "./styles/App.css";
+import { useSelector, useDispatch } from 'react-redux'
+import { increment, decrement, reset } from './redux/slices/couter'
 
-import {
-	BrowserRouter,
-	Routes,
-	Route
-} from "react-router-dom"
-import React, { useEffect, useTransition } from "react";
-import Home from './components/Home';
-import About from './components/About';
-import Contact from './components/Contact';
-import Users from './components/Users';
-import User from './components/User';
-import NotFound from './components/NotFound';
+export default function App() {
+  const count = useSelector((state) => (state as {counter:{value:string}}).counter.value)
+  const dispatch = useDispatch()
 
-
-const Team: React.FC = () => <h2>Team Page</h2>;
-const Company: React.FC = () => {
-	// 
-	return <h2>Company Page</h2>
-};
-
-const App: React.FC = () => {
-
-	useEffect(() => {
-		const intersection = new IntersectionObserver((entries) => {
-			entries.forEach(entry => {
-				if (entry.isIntersecting) {
-					entry.target.classList.add('show');
-				} else {
-					entry.target.classList.remove('show');
-				}
-			})
-		}, {});
-		document.querySelectorAll('item')?.forEach(item=>intersection.observe(item));
-	}, [])
-	return (
-		<div className="body">
-			{
-				Array(20).fill(1).map((_, i) => {
-					return <div className="item" key={i}>
-						<h3>Item {i}</h3>
-					</div>
-				})
-			}
-		</div>
-	)
+  return (
+    <div style={{ textAlign: 'center', marginTop: 50 }}>
+      <h1>Count: {count}</h1>
+      <button onClick={() => dispatch(increment())}>+</button>
+      <button onClick={() => dispatch(decrement())}>-</button>
+      <button onClick={() => dispatch(reset())}>Reset</button>
+    </div>
+  )
 }
-
-export default App;
