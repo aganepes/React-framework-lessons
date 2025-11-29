@@ -33,7 +33,7 @@ const App: FC = () => {
 	
 	const handleMessageClick = useCallback((msg: string) => {
 		setMessage(msg);
-	}, [message])
+	}, [message]);
 
 
 

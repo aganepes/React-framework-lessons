@@ -31,8 +31,7 @@ const Todo = (props: PropsType): React.ReactElement<PropsType> => {
 
 		{visibleInput ?
 			<div className="input-cont">
-				{/*value={props.todo.title}  */}
-				<input type="text" defaultValue={props.todo.title} ref={titleRef} />
+				<input type="text" value={props.todo.title} ref={titleRef} />
 				<button onClick={handleChange}>Change to title of todo</button>
 			</div>
 			: <>

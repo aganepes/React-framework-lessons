@@ -10,7 +10,11 @@ const About: React.FC = () => (
 		<nav>
 			<ul>
 				<li>
-					<NavLink to="team" style={({ isActive }) => isActive ? { color: "red" } : { color: "black" }}>Out Team</NavLink>
+					<NavLink to="team"
+						className={({ isActive }) => isActive ? "" : ""}
+						style={({ isActive }) => isActive ?
+							{ color: "red" } : { color: "black" }}
+					>Out Team</NavLink>
 				</li>
 				<li>
 					<NavLink to="company" className={({ isActive }) => isActive ? styles.linkActive : styles.link}>

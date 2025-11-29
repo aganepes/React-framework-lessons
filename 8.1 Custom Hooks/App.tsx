@@ -5,7 +5,7 @@ type countType = {
 	count: number;
 	increment: () => void;
 	decrement: () => void;
-	reset: (initial: number | undefined) => void
+	reset: (initial: number | undefined) => void;
 }
 
 const useCounter = (initialValue: number = 0): countType => {
@@ -20,7 +20,7 @@ const useCounter = (initialValue: number = 0): countType => {
 
 	const reset = useCallback((initial: number | undefined) => {
 		setNumber(initial ? initial : initialValue);
-	}, [initialValue])
+	}, [initialValue]);
 
 	return { reset, count: numb, increment, decrement }
 }
