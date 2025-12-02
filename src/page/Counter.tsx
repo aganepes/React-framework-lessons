@@ -1,6 +1,6 @@
 import React from 'react'
-import { useCounterStore } from './store';
-import './index.css';
+import { useCounterStore } from '../features/counter/store';
+import './styles/counter.css';
 
 function App() {
 	const count = useCounterStore((state) => state.count);
