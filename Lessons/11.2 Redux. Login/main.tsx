@@ -14,12 +14,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 	<Provider store={store}>
 		<BrowserRouter>
 			<Routes>
-				<Route
-					path='/'
+				<Route path='/'
 					element={<Home/>}
 				/>
-				<Route
-					path='/user'
+				<Route path='/user'
 					element={
 						<ProtectedRoute>
 							<User />

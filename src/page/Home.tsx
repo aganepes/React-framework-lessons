@@ -1,27 +1,26 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import './styles/link.css';
+import { store, TStore } from '../store';
+import { useDispatch } from 'react-redux';
+import { loadUserFromStorage, logout } from '../features/auth/slide';
+import { useSelector } from 'react-redux';
 
-// TypeScript interface for component props
-interface HomeProps {
-	userName?: string; // Optional user name prop
-}
-
-// Styles defined as a JavaScript/TypeScript object
 const styles = {
 	container: {
 		padding: '40px',
-		backgroundColor: '#f4f7f6', // Light gray/blue background
+		backgroundColor: '#f4f7f6',
 		minHeight: '100vh',
-		textAlign: 'center' as const, // For CSS text-align property
+		textAlign: 'center' as const,
 		fontFamily: 'Arial, sans-serif',
 	},
 	header: {
-		color: '#2c3e50', // Dark blue/gray header color
+		color: '#2c3e50',
 		fontSize: '3em',
 		marginBottom: '20px',
 	},
 	greeting: {
-		color: '#34495e', // Slightly less dark greeting color
+		color: '#34495e',
 		fontSize: '1.5em',
 		marginBottom: '30px',
 	},
@@ -29,44 +28,74 @@ const styles = {
 		maxWidth: '800px',
 		margin: '0 auto',
 		padding: '20px',
-		backgroundColor: '#ffffff', // White content box
+		backgroundColor: '#ffffff',
 		borderRadius: '10px',
-		boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', // Subtle box shadow
+		boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
 	},
 	listItem: {
 		listStyle: 'none',
 		padding: '10px 0',
 		borderBottom: '1px solid #ecf0f1',
 		cursor: 'pointer',
-		transition: 'background-color 0.3s',
+		transition: 'background-color 0.3s easy-in-out',
 	},
 	list: {
+		display: "flex",
+		gap: '1rem',
 		padding: '0',
 		marginTop: '20px',
-	}
+	},
 };
 
-const Home: React.FC<HomeProps> = ({ userName = 'Guest' }) => {
+interface HomeProps {
+	userName?: string;
+}
+
+const Home: React.FC<HomeProps> = ({ userName = 'Not name' }) => {
+	const { user } = useSelector((s: TStore) => s.auth)
+	const dispatch = useDispatch<typeof store.dispatch>();
+	useEffect(() => {
+		dispatch(loadUserFromStorage());
+	}, [dispatch]);
+	
 	return (
 		<div style={styles.container}>
-			{/* Main Header */}
 			<h1 style={styles.header}>Welcome to the Application!</h1>
-
 			<ul style={styles.list}>
-				<li style={styles.listItem}><Link to='/register'>={">"}Register</Link></li>
-				<li style={styles.listItem}><Link to='/login'>={">"}Login</Link></li>
-				<li style={styles.listItem}><Link to='/user'>={">"}User</Link></li>
+				{user ? (
+					<>
+						<li style={styles.listItem}>
+							<div className={"link"} onClick={() => dispatch(logout())}>Logout</div>
+						</li>
+						<li style={styles.listItem}>
+							<NavLink to='/user'
+								className={({ isActive }) => isActive ? "active-link" : "link"}
+							>User</NavLink>
+						</li>
+
+					</>
+				) : (
+					<>
+						<li style={styles.listItem}>
+							<NavLink to='/login'
+								className={({ isActive }) => isActive ? "active-link" : "link"}
+							>Login</NavLink>
+						</li>
+						<li style={styles.listItem}>
+							<NavLink to='/register'
+								className={({ isActive }) => isActive ? "active-link" : "link"}
+							>Register</NavLink>
+						</li>
+					</>
+				)}
 			</ul>
-			{/* Personalized Greeting */}
+
 			<p style={styles.greeting}>
-				Hello, **{userName}**. Here is your current information:
+				Hello, **{user ? user.name : userName}**. Here is your current information:
 			</p>
 
-			{/* Content Box */}
 			<div style={styles.content}>
 				<h2>Latest Updates</h2>
-
-				{/* Example List */}
 				<ul style={styles.list}>
 					<li style={styles.listItem}>🚀 New Features are Live</li>
 					<li style={styles.listItem}>📚 Documentation Updates</li>
@@ -82,3 +111,4 @@ const Home: React.FC<HomeProps> = ({ userName = 'Guest' }) => {
 };
 
 export default Home;
+

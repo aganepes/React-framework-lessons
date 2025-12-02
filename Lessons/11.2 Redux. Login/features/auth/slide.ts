@@ -22,7 +22,7 @@ export const registerUser = createAsyncThunk<TApiRegister, Omit<TUser, "id">>(
 	}
 )
 export type TState = {
-	user: null | Omit<TUser, "password" | "email"> | TUser,
+	user: null | Omit<TUser, "password"> | TUser,
 	token: null | string,
 	error: null | string,
 	loading: boolean
@@ -42,6 +42,9 @@ const authSlide = createSlice({
 			state.token = null;
 			localStorage.removeItem("auth");
 		},
+		clearError: (state: TState) => {
+			state.error = null;
+		},
 		loadUserFromStorage: (state: TState) => {
 			const saved = JSON.parse(localStorage.getItem('auth')!);
 			if (saved) {
@@ -58,8 +61,8 @@ const authSlide = createSlice({
 			.addCase(loginUser.fulfilled, (state: TState, action) => {
 				state.loading = false;
 				state.token = (action as { payload: { token: string } }).payload.token;
-				state.user = (action as { payload: { user: Omit<TUser, "password" | "email"> } }).payload.user;
-				localStorage.setItem('auth', JSON.stringify(state.user));
+				state.user = (action as { payload: { user: Omit<TUser, "password"> } }).payload.user;
+				localStorage.setItem('auth', JSON.stringify({ user: state.user, token: state.token }));
 			})
 			.addCase(loginUser.rejected, (state: TState, action) => {
 				state.loading = false;
@@ -72,6 +75,7 @@ const authSlide = createSlice({
 				state.loading = false;
 				state.user = action.payload?.user as TUser;
 				state.token = action.payload?.token as string;
+				localStorage.setItem('auth', JSON.stringify({ user: state.user, token: state.token }));
 			})
 			.addCase(registerUser.rejected, (state: TState, action) => {
 				state.loading = false;
@@ -80,5 +84,5 @@ const authSlide = createSlice({
 	},
 });
 
-export const {loadUserFromStorage,logout}=authSlide.actions;
+export const { loadUserFromStorage, logout, clearError } = authSlide.actions;
 export default authSlide.reducer;
