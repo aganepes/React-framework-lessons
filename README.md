@@ -1,73 +1,91 @@
-# React + TypeScript + Vite
+# ⚛️ React Framework Course
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A step-by-step, practical course that teaches modern React from fundamentals to advanced topics, including performance optimization, routing, custom hooks, and global state management.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📚 Course Content
 
-## React Compiler
+### 1. 🧱 Fundamentals
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 1. Components, Props and Styles 🎨
 
-## Expanding the ESLint configuration
+### 2. 🔁 Component Lifecycle
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 2. DidMount & WillUnmount (key, index) ⏳
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 3. 🧩 Core Hooks
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- 3. useEffect() 🔄
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 4. 🎯 DOM References
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- 4. useRef() with input element 🔍
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 5. 🚀 Performance Optimization
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- 5. memo() and useCallback() ⚙️
+
+### 6. 🚀 Performance Optimization
+
+- 6. useMemo() 📦
+
+### 7. 🧠 Advanced Hooks
+
+- 7. useReducer() 📉
+
+### 8. 🧪 Custom Hooks
+
+- 8.1 Custom Hooks 🧬  
+- 8.2 Custom Hooks 🧬
+
+### 9. 🌐 Context API (Global State)
+
+- 9.1 useContext() – Counter 🧮  
+- 9.2 useContext() – Theme 🎨  
+- 9.3 useContext() – Global 🌍
+
+### 10. 🧭 Routing
+
+- 10.1 React Router DOM 🚦  
+- 10.2 NavLink and Params 🔗
+
+### 11. 🧰 State Management with Redux
+
+- 11.1 Redux – Counter 🧮  
+- 11.2 Redux – Login 🔐
+
+---
+
+## 🎯 Learning Outcomes
+
+By the end of this course, you will be able to:
+
+- Understand React components, props, and styling
+- Use lifecycle logic with hooks confidently
+- Manage state with useState, useReducer, and useContext
+- Create reusable custom hooks
+- Optimize performance using memo, useCallback, and useMemo
+- Implement routing with React Router
+- Manage global state with Context API and Redux
+
+---
+
+## 🛠️ Technologies Used
+
+- ⚛️ React  
+- 🧩 Hooks  
+- 🌐 Context API  
+- 🧭 React Router DOM  
+- 🧰 Redux  
+- 🎨 CSS Modules / Styled Components (optional)
+
+---
+
+## 📦 Installation
+
+```bash
+git clone <repo-url>
+cd <folder>
+npm install
+npm start
