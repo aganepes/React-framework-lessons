@@ -31,7 +31,7 @@ interface ThemeProviderProps {
 
 export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
 	const [state, dispatch] = useReducer(themeReducer, { theme: "light" });
-	const contextValue: ThemeContextProps = { state, dispatch };
+	const contextValue = { state, dispatch };
 
 	return (
 		<ThemeContext.Provider value={contextValue}>
