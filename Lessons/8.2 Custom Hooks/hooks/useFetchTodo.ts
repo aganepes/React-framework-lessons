@@ -8,22 +8,22 @@ const useFetchTodo = (userId: number): fetchTodo => {
 	const [error, setError] = useState<unknown>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 
-	const fetchTodo = async () => {
-		return new Promise(()=>{
-			setTimeout(async ()=>{
-				try {
-					const response = await fetch("http://localhost:3000/todos");
-					const data = (await response.json()) as todoType[];
-					setData(data.filter(t => t.userId === userId));
-				} catch (error) {
-					setError(error);
-				} finally {
-					setLoading(false);
-				}
-			},2000)
-		})
-	}
 	useEffect(() => {
+		const fetchTodo = () => {
+			return new Promise(() => {
+				setTimeout(async () => {
+					try {
+						const response = await fetch("http://localhost:3000/todos");
+						const data = (await response.json()) as todoType[];
+						setData(data.filter(t => t.userId === userId));
+					} catch (error) {
+						setError(error);
+					} finally {
+						setLoading(false);
+					}
+				}, 2000)
+			})
+		}
 		fetchTodo();
 	}, [userId]);
 
