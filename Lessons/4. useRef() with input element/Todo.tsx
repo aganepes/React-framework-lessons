@@ -16,7 +16,7 @@ const Todo = (props: PropsType): React.ReactElement<PropsType> => {
 
 	useEffect(() => {
 		return () => {
-			// console.log(`${props.todo.id} - removed to todo.`);
+			console.log(`${props.todo.id} - removed to todo.`);
 		}
 	}, []);
 	const handleChange = () => {
