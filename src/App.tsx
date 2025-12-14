@@ -25,7 +25,7 @@ const countReducer = (state: State, action: Action): State => {
 const App: FC = () => {
 	const [state, countDispatch] = useReducer(countReducer, { count: 0 });
 
-	return (<div className='bg-white bg-[size:20px_20px] bg-[linear-gradient(#e5e7eb_1px,transparent_1px),linear-gradient(90deg,#e5e7eb_1px,transparent_1px)]'>
+	return (<div className="">
 		<h3>useReducer Example</h3>
 		<p>Number: {state.count}</p>
 		<button
