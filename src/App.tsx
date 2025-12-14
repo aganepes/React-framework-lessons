@@ -1,43 +1,17 @@
-import { type FC, useReducer } from 'react';
-
-interface State {
-	count: number;
-}
-
-type Action = {
-	type: "INCREMENT" | "DECREMENT" | "RESET",
-	payload?: number
-};
-
-const countReducer = (state: State, action: Action): State => {
-	switch (action.type) {
-		case "INCREMENT":
-			return { count: state.count + 1 }
-		case "DECREMENT":
-			return { count: state.count - 1 }
-		case "RESET":
-			return { count: action.payload! }
-		default:
-			return state
-	}
-}
+import { FC, useState } from "react";
+import FirstPage from "./components/FirstPage";
+import SecondPage from "./components/Question";
 
 const App: FC = () => {
-	const [state, countDispatch] = useReducer(countReducer, { count: 0 });
-
-	return (<div className="">
-		<h3>useReducer Example</h3>
-		<p>Number: {state.count}</p>
-		<button
-			onClick={() => countDispatch({ type: "INCREMENT" })}>Number + </button>
-		<br />
-		<button
-			onClick={() => countDispatch({ type: "DECREMENT" })}>Number - </button>
-		<br />
-		<button
-			onClick={() => countDispatch({ type: "RESET", payload: 10 })}>Number = 10 </button>
-		<br />
-	</div>)
+	const [pageName, setPageName] = useState('');
+	return (
+		<div className="w-full min-h-[100vh] p-2 flex justify-center items-center select-none ">
+			{pageName
+				? <SecondPage pageName={pageName} />
+				: <FirstPage setPageName={setPageName} />
+			}
+		</div>
+	)
 }
 
 export default App;
