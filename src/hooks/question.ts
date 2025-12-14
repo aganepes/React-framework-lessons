@@ -25,14 +25,14 @@ export const initialState: QState = {
 export const questionReducer = function (state: QState, action: Action): QState {
 	switch (action.type) {
 		case "SET_ID":
-			return { ...state, id: state.id, question: state.question }
+			return { ...state, id: action.payload, question: state.question }
 		case "FETCH_START":
 			return { ...state, isPending: true, isError: null }
 		case "FETCH_SUCCESS":
 			return {
 				...state,
 				question: action.payload.question ? action.payload.question : state.question,
-				length: action.payload.length ? action.payload.length : 0,
+				length: action.payload.length ? action.payload.length : state.length,
 				isPending: false, isError: null
 			}
 		case "FETCH_ERROR":

@@ -25,16 +25,19 @@ function TrueFalse(props:Props) {
 				const classList = themeClass;
 				for (let i = 0; i < 2; i++) {
 					if (index==i+1) {
-						if (answer == question.correctAnswer)
+						if (answer == question.correctAnswer){
 							classList[i] = answerTheme.correct;
-						else 
+							props.setResult((r)=>r.concat(true));
+						}else{ 
 							classList[i] = answerTheme.error;
+							props.setResult((r)=>r.concat(false));
+						}
 					} else {
 						classList[i] = answerTheme.default[i];
 					}
 				}
 				setThemeClass(classList);
-				setTimeout(()=>props.setId(question.id+1),1000);
+				setTimeout(()=>props.setId(Number(question.id)+1),1000);
 			}
 		}
 	return (

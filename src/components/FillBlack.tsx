@@ -28,13 +28,13 @@ function FillBlack(props:Props) {
 		if(inputRef.current && inputRef.current.value.trim().toLowerCase()==(props.question.correctAnswer as string).toLowerCase()){
 			props.setResult((result)=>result.concat(true));
 			setThemeClass(answerTheme.correct);
-			setTimeout(()=>props.setId(props.question.id+1),1000);
+			setTimeout(()=>props.setId(Number(props.question.id)+1),1000);
 			return ;
 		}
 
 		if(inputRef.current && inputRef.current.value.trim().toLowerCase()!=(props.question.correctAnswer as string).toLowerCase()){
 			props.setResult((result)=>result.concat(false));
-			setTimeout(()=>props.setId(props.question.id+1),1000);
+			setTimeout(()=>props.setId(Number(props.question.id)+1),1000);
 			setThemeClass(answerTheme.error);
 			return;
 		}

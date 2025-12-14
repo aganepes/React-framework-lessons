@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-type Props = {result:boolean[]};
+type Props = {result:boolean[],setPageName: Dispatch<SetStateAction<string>> };
 
 const App = (props:Props) => {
 
@@ -10,7 +10,7 @@ const App = (props:Props) => {
 		const correctNumber = props.result.filter((r)=>r).length;
 		const present = Math.round(correctNumber/100);
 		setResult(present);
-	},[result]);
+	},[props.result, result]);
 
 	return (
 			<div className="w-[300px] bg-white p-4 rounded-2xl">
@@ -24,7 +24,7 @@ const App = (props:Props) => {
 					<p className="text-center leading-4">You got <span className="text-emerald-900"> {result}% </span>of the answers correct. <br /> Congratulations!</p>
 				</div>
 				<div className="py-4 px-2">
-					<button className="px-2 py-1 bg-yellow-600 text-white font-serif rounded-sm cursor-pointer" style={{float:'right'}}>Finish</button>
+					<button className="px-2 py-1 bg-yellow-600 text-white font-serif rounded-sm cursor-pointer" style={{float:'right'}} onClick={()=>props.setPageName('')}>Finish</button>
 				</div>
 			</div>
 	)

@@ -8,7 +8,7 @@ const useFetchQuestion = (lessonName: string | null) => {
 	const setId = (id: number) => {
 		dispatch({ type: 'SET_ID', payload: id });
 	};
-	
+
 	// const [id, setId] = useState<number>(1);
 	// const [questionNumber, setQuestionNumber] = useState<number>(0);
 	// const [isPending, setIsPending] = useState<boolean>(true);
@@ -16,7 +16,7 @@ const useFetchQuestion = (lessonName: string | null) => {
 	// const [question, setQuestion] = useState<IQuestion | null>(null);
 
 	useEffect(() => {
-		const getQuestionLength = async ()=> {
+		const getQuestionLength = async () => {
 			try {
 				const response = await fetch(`http://localhost:3000/${lessonName}`);
 				const data = await response.json();
@@ -36,22 +36,24 @@ const useFetchQuestion = (lessonName: string | null) => {
 	}, [lessonName]);
 
 	useEffect(() => {
-		const getQuestion = async () => {	
-			try {
-				const response = await fetch(`http://localhost:3000/${lessonName}/${state.id}`);
-				const data = await response.json();
-				// setQuestion(data);
-				dispatch({type:'FETCH_SUCCESS',payload:{question:data}})
-			} catch (error: unknown) {
-				if (error instanceof Error) {
-					// setIsError(error.message)
-					dispatch({type:'FETCH_ERROR',payload:error.message});
+		const getQuestion = async () => {
+			if (state.id < state.length && !state.length) {
+				try {
+					const response = await fetch(`http://localhost:3000/${lessonName}/${state.id}`);
+					const data = await response.json();
+					// setQuestion(data);
+					dispatch({ type: 'FETCH_SUCCESS', payload: { question: data } })
+				} catch (error: unknown) {
+					if (error instanceof Error) {
+						// setIsError(error.message)
+						dispatch({ type: 'FETCH_ERROR', payload: error.message });
+					}
 				}
 			}
 		}
 		// setIsError("");
 		// setIsPending(true);
-		dispatch({type:"FETCH_START"});
+		dispatch({ type: "FETCH_START" });
 		setTimeout(getQuestion, 1500);
 		// setIsPending(false);
 	}, [state.id, lessonName]);

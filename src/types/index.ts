@@ -1,5 +1,5 @@
 export interface IQuestion {
-	id: number,
+	id: string,
 	type: "multiple_choice" | "true_false" | "fill_blank",
 	question: string,
 	options?: string[],

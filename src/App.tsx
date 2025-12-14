@@ -7,7 +7,7 @@ const App: FC = () => {
 	return (
 		<div className="w-full min-h-[100vh] p-2 flex justify-center items-center select-none ">
 			{pageName
-				? <SecondPage pageName={pageName} />
+				? <SecondPage pageName={pageName} setPageName={setPageName}/>
 				: <FirstPage setPageName={setPageName} />
 			}
 		</div>
