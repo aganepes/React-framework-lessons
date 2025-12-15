@@ -7,40 +7,43 @@ import React, { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 
 import useFetchQuestion from '../hooks/useFetch';
 import LoadingImage from '../assets/loading.svg';
 
-function App(props: { pageName: string,setPageName: Dispatch<SetStateAction<string>> }) {
+function App(props: { pageName: string, setPageName: Dispatch<SetStateAction<string>> }) {
 	const { question, length, id, isError, isPending, setId } = useFetchQuestion(props.pageName);
-	const [time, setTime] = useState<number>(0);
-	const [isFinal, setIsFinal] = useState<boolean>(false);
+	const [time, setTime] = useState<number>(-2);
+	// const [isFinal, setIsFinal] = useState<boolean>(true);
 	const [result, setResult] = useState<boolean[]>([]);
+	const isFinal = props.pageName || id>length;
+	// useEffect(() => {
+	// 	if (!props.pageName) {
+	// 		setIsFinal(true);
+	// 	}
+	// }, [props.pageName]);
 
-	useEffect(()=>{
-		setIsFinal(false);
-	},[props.pageName]);
-	
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setTime((time) => time + 1);
+			if (time > 20) {
+				setId(id + 1);
+				setTime(0);
+			}
 		}, 1000);
-
 		return () => {
-			setInterval(interval);
+			clearInterval(interval);
 			setTime(0);
 		}
 	}, []);
 
-	useEffect(() => {
-		if (time > 20) {
-			setId(Number(id) + 1);
-		}
-	}, [time]);
+	// useEffect(() => {
+	// 	if (time > 20 && id < length) {
+	// 		setId(id + 1);
+	// 		setTime(0);
+	// 	}
+	// }, [time, id, length]);
 
-	useEffect(() => {
-		setTime(0);
-	}, [id]);
 
 	useEffect(() => {
 		if (id > length) {
-			setIsFinal(true)
+			setIsFinal(true);
 		}
 	}, [id, length]);
 
@@ -83,11 +86,11 @@ function App(props: { pageName: string,setPageName: Dispatch<SetStateAction<stri
 						<p>
 							<span className="bg-quiz_number_bg p-1 px-2.5  rounded-full">{id}</span> of <span className="bg-quiz_number_bg p-1 px-2.5  rounded-full ml-0.5">{length}</span> Question
 						</p>
-						<button className="bg-red_bg px-4 py-0.5 rounded-sm text-quiz_white cursor-pointer border border-transparent hover:text-quiz_text-800 transition-colors delay-100 ease-in-out hover:bg-quiz_white hover:border-quiz_text-600 active:text-red_bg active:border-red_bg" onClick={() => { setId(id + 1);setResult(r=>r.concat(false)) }}>{!isFinal ? " Next " : "Result"}</button>
+						<button className="bg-red_bg px-4 py-0.5 rounded-sm text-quiz_white cursor-pointer border border-transparent hover:text-quiz_text-800 transition-colors delay-100 ease-in-out hover:bg-quiz_white hover:border-quiz_text-600 active:text-red_bg active:border-red_bg" onClick={() => { setResult(r => r.concat(false)); setId(id + 1); setTime(0); }}>{!isFinal ? " Next " : "Result"}</button>
 					</div>
 				</div>
 				)
-				: <Result result={result} setPageName={props.setPageName}/>
+				: <Result result={result} setPageName={props.setPageName} />
 		}
 	</div>)
 }

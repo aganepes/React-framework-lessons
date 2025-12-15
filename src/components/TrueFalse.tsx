@@ -12,7 +12,7 @@ type Props = { question: IQuestion, setResult: Dispatch<SetStateAction<boolean[]
 function TrueFalse(props:Props) {
 	const [question, setQuestion] = useState<null | IQuestion>(null);
 		const [answer, setAnswer] = useState<boolean | null>(null);
-		const [themeClass, setThemeClass] = useState<string[]>(['default', 'default']);
+		const [themeClass, setThemeClass] = useState<string[]>(answerTheme.default);
 	
 		useEffect(() => {
 			setQuestion(props.question);

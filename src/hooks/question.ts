@@ -18,7 +18,7 @@ export const initialState: QState = {
 	id: 1,
 	question: null,
 	length: 0,
-	isPending: false,
+	isPending: true,
 	isError: null
 }
 
