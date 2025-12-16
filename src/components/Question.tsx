@@ -7,45 +7,41 @@ import React, { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 
 import useFetchQuestion from '../hooks/useFetch';
 import LoadingImage from '../assets/loading.svg';
 
+const timeNumber = 20;
 function App(props: { pageName: string, setPageName: Dispatch<SetStateAction<string>> }) {
 	const { question, length, id, isError, isPending, setId } = useFetchQuestion(props.pageName);
 	const [time, setTime] = useState<number>(-2);
-	// const [isFinal, setIsFinal] = useState<boolean>(true);
 	const [result, setResult] = useState<boolean[]>([]);
-	const isFinal = props.pageName || id>length;
-	// useEffect(() => {
-	// 	if (!props.pageName) {
-	// 		setIsFinal(true);
-	// 	}
-	// }, [props.pageName]);
-
+	const [isFinal, setIsFinal] = useState<boolean>(false);
+	//!
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setTime((time) => time + 1);
-			if (time > 20) {
+			if (time > timeNumber && !isError) {
 				setId(id + 1);
-				setTime(0);
+				setTime(-2);
+			}
+			if (isError) {
+				clearInterval(interval);
 			}
 		}, 1000);
 		return () => {
 			clearInterval(interval);
-			setTime(0);
+			setTime(-2);
 		}
-	}, []);
+	}, [id, isError]);
 
-	// useEffect(() => {
-	// 	if (time > 20 && id < length) {
-	// 		setId(id + 1);
-	// 		setTime(0);
-	// 	}
-	// }, [time, id, length]);
-
-
+	//! if 
 	useEffect(() => {
-		if (id > length) {
-			setIsFinal(true);
+		if (time > timeNumber && id < length) {
+			setId(id + 1);
+			setTime(-2);
 		}
-	}, [id, length]);
+	}, [time, id]);
+	//!
+	useEffect(()=>{
+		setIsFinal(id>length && !isError);
+	},[id,isError,length]);
 
 	const SwitchElement = (): ReactNode => {
 		switch (question?.type) {
@@ -59,6 +55,12 @@ function App(props: { pageName: string, setPageName: Dispatch<SetStateAction<str
 				return <></>
 		}
 	}
+
+	const NextButton = () => {
+		setResult(r => r.concat(false));
+		setId(id + 1);
+		setTime(0);
+	};
 
 	return (<div className="w-full h-[100vh] flex justify-center items-center select-none">
 		{
@@ -86,7 +88,12 @@ function App(props: { pageName: string, setPageName: Dispatch<SetStateAction<str
 						<p>
 							<span className="bg-quiz_number_bg p-1 px-2.5  rounded-full">{id}</span> of <span className="bg-quiz_number_bg p-1 px-2.5  rounded-full ml-0.5">{length}</span> Question
 						</p>
-						<button className="bg-red_bg px-4 py-0.5 rounded-sm text-quiz_white cursor-pointer border border-transparent hover:text-quiz_text-800 transition-colors delay-100 ease-in-out hover:bg-quiz_white hover:border-quiz_text-600 active:text-red_bg active:border-red_bg" onClick={() => { setResult(r => r.concat(false)); setId(id + 1); setTime(0); }}>{!isFinal ? " Next " : "Result"}</button>
+						<button className="bg-red_bg px-4 py-0.5 rounded-sm text-quiz_white cursor-pointer border border-transparent hover:text-quiz_text-800 transition-colors delay-100 ease-in-out hover:bg-quiz_white hover:border-quiz_text-600 active:text-red_bg active:border-red_bg"
+							onClick={NextButton}
+							disabled={isError ? true : false}
+						>
+							{!isFinal ? "Next" : "Result"}
+						</button>
 					</div>
 				</div>
 				)

@@ -42,7 +42,7 @@ const useFetchQuestion = (lessonName: string | null) => {
 					const response = await fetch(`http://localhost:3000/${lessonName}/${state.id}`);
 					const data = await response.json();
 					// setQuestion(data);
-					dispatch({ type: 'FETCH_SUCCESS', payload: { question: {id:Number(data.id),...data} } });
+					dispatch({ type: 'FETCH_SUCCESS', payload: { question: {...data,id:Number(data.id)} } });
 					
 				} catch (error: unknown) {
 					if (error instanceof Error) {

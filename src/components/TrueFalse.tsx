@@ -13,18 +13,29 @@ function TrueFalse(props:Props) {
 	const [question, setQuestion] = useState<null | IQuestion>(null);
 		const [answer, setAnswer] = useState<boolean | null>(null);
 		const [themeClass, setThemeClass] = useState<string[]>(answerTheme.default);
+		const [isFirstCheck,setIsFirstCheck] = useState<boolean>(false);
 	
 		useEffect(() => {
 			setQuestion(props.question);
-		}, [props.question, question]);
-	
+		}, []);
+
+		useEffect(()=>{
+			if(question){
+				setTimeout(()=>{
+					setThemeClass(answerTheme.default);
+					setIsFirstCheck(false);
+					props.setId(question.id+1);
+				},1000);
+			}
+		},[answer, props, question]);
+
 		const handleClick = function (index: number): void {
-			if (question?.options) {
+			if (question?.options && !isFirstCheck) {
 				setAnswer(index==0 ? true : false);
-	
+				setIsFirstCheck(true);
 				const classList = themeClass;
 				for (let i = 0; i < 2; i++) {
-					if (index==i+1) {
+					if (index==i) {
 						if (answer == question.correctAnswer){
 							classList[i] = answerTheme.correct;
 							props.setResult((r)=>r.concat(true));
@@ -37,7 +48,8 @@ function TrueFalse(props:Props) {
 					}
 				}
 				setThemeClass(classList);
-				setTimeout(()=>props.setId(Number(question.id)+1),1000);
+			}else{
+				setThemeClass(answerTheme.default);
 			}
 		}
 	return (

@@ -12,19 +12,31 @@ type Props = { question: IQuestion, setResult: Dispatch<SetStateAction<boolean[]
 function MultipleChoice(props: Props) {
 	const [question, setQuestion] = useState<null | IQuestion>(null);
 	const [answer, setAnswer] = useState<string | null>(null);
-	const [themeClass, setThemeClass] = useState<string[]>(answerTheme.default)
+	const [themeClass, setThemeClass] = useState<string[]>(answerTheme.default);
+	const [isFirstCheck, setIsFirstCheck] = useState<boolean>(false);
 
 	useEffect(() => {
 		setQuestion(props.question);
-	}, [props.question, question]);
+	}, []);
+
+	useEffect(() => {
+		if(question){
+			setTimeout(() => {
+				setThemeClass(answerTheme.default);
+				setIsFirstCheck(false);
+				props.setId(question.id + 1);
+			}, 10000);
+		}
+	}, [answer]);
 
 	const handleClick = function (index: number): void {
-		if (question?.options) {
+		if (question?.options && !isFirstCheck) {
 			setAnswer(question.options[index]);
+			setIsFirstCheck(true);
 
 			const classList = themeClass;
 			for (let i = 0; i < question?.options.length; i++) {
-				if (i + 1 == index) {
+				if (i == index) {
 					if (answer == question.correctAnswer) {
 						classList[i] = answerTheme.correct;
 						props.setResult((r) => r.concat(true));
@@ -37,7 +49,8 @@ function MultipleChoice(props: Props) {
 				}
 			}
 			setThemeClass(classList);
-			setTimeout(() => props.setId(Number(question.id) + 1), 1000);
+		} else {
+			setThemeClass(answerTheme.default);
 		}
 	}
 
