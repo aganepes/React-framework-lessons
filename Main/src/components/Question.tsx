@@ -38,7 +38,7 @@ function App(props: { pageName: string, setPageName: Dispatch<SetStateAction<str
 			setTime(-2);
 		}
 	}, [time, id]);
-	//!
+	//! final error 
 	useEffect(()=>{
 		setIsFinal(id>length && !isError);
 	},[id,isError,length]);
