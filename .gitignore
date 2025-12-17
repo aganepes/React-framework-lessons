@@ -13,7 +13,8 @@ dist-ssr
 *.local
 bun.lock
 package.lock.json
-
+/Projects/Quiz-page
+/Main
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
