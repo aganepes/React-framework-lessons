@@ -7,14 +7,11 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-main/node_modules
-Quiz(useReducer)/node_modules
+node_modules
 dist
 dist-ssr
 *.local
-bun.lock
-package.lock.json
-/main
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
