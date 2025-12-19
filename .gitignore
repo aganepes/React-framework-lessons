@@ -8,7 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 main/node_modules
-Quiz(useReducer)/node_modules
+projects/Quiz(useReducer)/node_modules
 dist
 dist-ssr
 *.local
