@@ -14,20 +14,20 @@ interface ProviderProps {
 	children: ReactNode
 }
 
-export const CounterProvider: FC<ProviderProps> = ({ children }) => {
+export const CounterProvider: FC = ({ children }:ProviderProps) => {
 	const [counter, setCounter] = useState<number>(0);
-	const incrementCounter = useCallback(()=>{
+	
+	const incrementCounter = ()=>{
 		setCounter((c)=>c+1);
-	},[]);
+	};
 	const decrementCounter = useCallback(()=>{
 		setCounter((c)=>c-1);
-	},[]);
+	},[counter]);
 	const resetCounter = useCallback((n:number)=>{
 		setCounter(n);
 	},[]);
-	const value={counter,incrementCounter,decrementCounter,resetCounter};
 	return (
-		<CounterContext.Provider value={value}>
+		<CounterContext.Provider value={{counter,incrementCounter,decrementCounter,resetCounter}}>
 			{children}
 		</CounterContext.Provider>
 	)
