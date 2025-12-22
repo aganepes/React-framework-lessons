@@ -9,13 +9,13 @@ interface GlobalProviderProps {
 	children:ReactNode
 }
 
-export const GlobalProvider:FC<GlobalProviderProps> = ({children})=>{
+export const GlobalProvider:FC<GlobalProviderProps> = ({children}:GlobalProviderProps)=>{
 	const [state,dispatch] = useReducer(globalReducer,initialGlobalState);
 	const contextValue : GlobalContextProps = {state,dispatch};
 
 	return (
 		<GlobalContext.Provider value={contextValue}>
-		{children}
+			{children}
 		</GlobalContext.Provider>
 	)
 }
