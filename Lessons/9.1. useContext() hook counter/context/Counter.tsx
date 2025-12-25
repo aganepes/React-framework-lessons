@@ -32,3 +32,12 @@ export const CounterProvider: FC = ({ children }:ProviderProps) => {
 		</CounterContext.Provider>
 	)
 }
+
+export function useGlobal(){
+	const globalState = useContext(CounterContext);
+	if(globalState==null){
+		console.error('This global context is null');
+	}else{
+		return globalState;
+	}
+}

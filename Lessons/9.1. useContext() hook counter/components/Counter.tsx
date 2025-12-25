@@ -1,11 +1,12 @@
 import {  useContext } from "react";
-import { CounterContext, TState } from "../context/Counter";
+import { CounterContext, TState, useGlobal } from "../context/Counter";
 
 function ThemeToggler() {
-	const {counter,incrementCounter,decrementCounter,resetCounter  } = useContext<TState|null>(CounterContext)!;
+	const {counter,incrementCounter,decrementCounter,resetCounter,theme,toggleTheme  } = useGlobal()
 
 	return (
 		<div>
+			<h2>theme : {theme}</h2> <button onClick={toggleTheme}></button>
 			<h2>Current Counter : {counter}</h2>
 			<button onClick={()=>incrementCounter()}>counter +</button>
 			<button onClick={()=>decrementCounter()}>counter -</button>
@@ -15,3 +16,4 @@ function ThemeToggler() {
 }
 
 export default ThemeToggler;
+
