@@ -2,6 +2,5 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles/index.css'
 import App from './App.tsx'
-import { GlobalProvider } from './context/global/GlobalContext.tsx';
 
-createRoot(document.getElementById('root')!).render(<GlobalProvider><App /></GlobalProvider>);
+createRoot(document.getElementById('root')!).render(<App />);

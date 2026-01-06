@@ -16,3 +16,4 @@ export const useCounterStore = create<TCounterStore>((set) => ({
 	decrement: (by:number) => set((state) => ({ count: state.count - by })),
 	updateCount: (resetNumber:number) => set({ count:resetNumber })
 }));
+

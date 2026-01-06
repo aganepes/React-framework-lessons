@@ -24,6 +24,7 @@ interface IAuthActions {
 	clearError: () => void;
 }
 type TAuthStore = TState & IAsyncAuthActions & IAuthActions;
+
 export const useAuthStore = create<TAuthStore>((set) => ({
 	user: null,
 	token: null,
